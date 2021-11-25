@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ATM</a> &gt; <a href="index.source.html" class="el_package">ATM</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package ATM;
+import java.util.*;
+
+
+<span class="nc" id="L5">public class Main {</span>
+    public static void main(String[] args) {
+        // Set up ATM
+<span class="nc" id="L8">        ATM atm = new ATM();</span>
+<span class="nc" id="L9">        atm.setupMoney(5000, 200);</span>
+<span class="nc" id="L10">        String pathname = &quot;CardDatabase.txt&quot;;</span>
+<span class="nc" id="L11">        atm.setDatabase(pathname);</span>
+
+        labelA:
+        while (true) {
+<span class="nc" id="L15">            String cardNum = null;</span>
+
+<span class="nc" id="L17">            Scanner scan = new Scanner(System.in);</span>
+<span class="nc" id="L18">            System.out.println(&quot;Welcome to the XYZ Bank ATM!\nPlease enter your bank card number:&quot;);</span>
+
+            try {
+<span class="nc" id="L21">                cardNum = scan.next();</span>
+<span class="nc" id="L22">            } catch (NoSuchElementException e) {</span>
+<span class="nc" id="L23">                e.printStackTrace();</span>
+<span class="nc" id="L24">            }</span>
+
+            // Check card number
+            try {
+<span class="nc bnc" id="L28" title="All 2 branches missed.">                if (!atm.checkCardValid(cardNum)) {</span>
+<span class="nc" id="L29">                    continue;</span>
+                }
+<span class="nc" id="L31">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L32">                System.out.println(&quot;This card number is invalid.\n&quot;);</span>
+<span class="nc" id="L33">                continue;</span>
+<span class="nc" id="L34">            }</span>
+
+            // Check Status
+<span class="nc bnc" id="L37" title="All 2 branches missed.">            if (!atm.checkConfiscate()) {</span>
+<span class="nc" id="L38">                continue;</span>
+            }
+
+
+            // Check pin 3 times
+<span class="nc" id="L43">                for (int i = 0; true; i ++){</span>
+<span class="nc" id="L44">                    int num = 3 - i;</span>
+<span class="nc" id="L45">                    System.out.println(&quot;Enter Pin (&quot; + num + &quot; more chances):&quot;);</span>
+<span class="nc" id="L46">                    String inputPin = scan.next();    </span>
+                try {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                    if (atm.checkPin(inputPin)) {</span>
+<span class="nc" id="L49">                        break;</span>
+                    }
+<span class="nc" id="L51">                } catch (NumberFormatException e) {</span>
+<span class="nc" id="L52">                }</span>
+                    // If run out all chance
+<span class="nc bnc" id="L54" title="All 2 branches missed.">                    if (num == 1) {</span>
+<span class="nc" id="L55">                        System.out.println(&quot;You have ran out all chances. Your card will be locked.&quot;);</span>
+<span class="nc" id="L56">                        continue labelA;</span>
+                    }
+                }
+
+            // Option while loop
+
+            labelB:
+            while (true) {
+<span class="nc" id="L64">                System.out.println(&quot;Please select operation(Deposit,Withdraw,CheckBalance,Quit):&quot;);</span>
+<span class="nc" id="L65">                String operation = scan.next();</span>
+
+                try {
+                    // deposit
+<span class="nc bnc" id="L69" title="All 5 branches missed.">                    switch (operation.toUpperCase()) {</span>
+
+                        case &quot;DEPOSIT&quot;:
+                        case &quot;D&quot;: {
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                            if (!deposit(scan, atm)) {</span>
+<span class="nc" id="L74">                                continue labelB;</span>
+                            }
+                            break;
+                        }
+
+                        // withdraw
+                        case &quot;WITHDRAW&quot;:
+                        case &quot;W&quot;: {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                            if (!withdraw(scan, atm)) {</span>
+<span class="nc" id="L83">                                continue labelB;</span>
+                            }
+                            break;
+                        }
+
+                        // Check Balance
+                        case &quot;CHECKBALANCE&quot;:
+                        case &quot;B&quot;:
+<span class="nc" id="L91">                            atm.checkBalance();</span>
+<span class="nc" id="L92">                            break;</span>
+
+                        // Quit
+                        case &quot;QUIT&quot;:
+                        case &quot;Q&quot;:
+<span class="nc" id="L97">                            System.out.println(&quot;Thank you for using the ATM service.\n&quot;);</span>
+<span class="nc" id="L98">                            break labelB;</span>
+
+                        default:
+<span class="nc" id="L101">                            System.out.println(&quot;Please enter a correct operation.&quot;);</span>
+                    }
+
+<span class="nc" id="L104">                } catch (Exception e) {</span>
+<span class="nc" id="L105">                    System.out.println(&quot;Please select your operation again, pay attention to correct input!\r\n&quot;);</span>
+<span class="nc" id="L106">                }</span>
+<span class="nc" id="L107">            }</span>
+
+            // Update to Atm card list
+<span class="nc" id="L110">            atm.updateToCardList();</span>
+            // Update to txt data base
+<span class="nc" id="L112">            atm.txtUpdater(pathname);</span>
+            // ATM Check
+<span class="nc" id="L114">            atm.maintenance();</span>
+<span class="nc" id="L115">        }</span>
+    }
+
+    public static Boolean deposit(Scanner scan, ATM atm) {
+<span class="fc" id="L119">        System.out.println(&quot;Please enter the amount you want to deposit(Only notes are accepted):&quot;);</span>
+<span class="fc" id="L120">        String a = scan.next();</span>
+
+
+<span class="pc bpc" id="L123" title="1 of 4 branches missed.">        if (a.toUpperCase().equals(&quot;CANCEL&quot;) || a.toUpperCase().equals(&quot;C&quot;)) {</span>
+<span class="fc" id="L124">            return false;</span>
+        }
+
+<span class="fc" id="L127">        double note = Double.parseDouble(a);</span>
+
+        try {
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            if (note % 1 != 0) {</span>
+<span class="fc" id="L131">                System.out.println(&quot;The ATM can only deposit notes.&quot;);</span>
+<span class="fc" id="L132">                return false;</span>
+            }
+<span class="fc bfc" id="L134" title="All 2 branches covered.">            if (atm.deposit(note)) {</span>
+<span class="fc" id="L135">                Receipt receipt = new Receipt(atm.getReceiptAccount(), note, &quot;DEPOSIT&quot;, atm.getCurrentCard().getBalance());</span>
+<span class="fc" id="L136">                atm.setReceiptAccount(atm.getReceiptAccount() + 1);</span>
+<span class="fc" id="L137">                receipt.PrintReceipt();</span>
+<span class="fc" id="L138">                return true;</span>
+            }else {
+<span class="fc" id="L140">                return false;</span>
+            }
+
+<span class="nc" id="L143">        } catch (Exception e) {</span>
+<span class="nc" id="L144">            System.out.println(&quot;Please enter a numeral input.\r\n&quot;);</span>
+<span class="nc" id="L145">            return false;</span>
+        }
+
+    }
+
+    public static Boolean withdraw(Scanner scan, ATM atm) {
+<span class="fc" id="L151">        System.out.println(&quot;Please enter the amount of notes you want to withdraw.&quot;);</span>
+<span class="fc" id="L152">        String Note = scan.next();</span>
+
+<span class="pc bpc" id="L154" title="1 of 4 branches missed.">        if (Note.toUpperCase().equals(&quot;CANCEL&quot;) || Note.toUpperCase().equals(&quot;C&quot;)) {</span>
+<span class="fc" id="L155">            return false;</span>
+        }
+        
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        if (Double.parseDouble(Note) % 1 != 0) {</span>
+<span class="nc" id="L159">            System.out.println(&quot;Please enter a whole number.&quot;);</span>
+<span class="nc" id="L160">            return false;</span>
+        }
+
+<span class="fc" id="L163">        System.out.println(&quot;Please enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).&quot;);</span>
+<span class="fc" id="L164">        String Coin = scan.next();</span>
+        
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">        if (Double.parseDouble(Coin) &gt; 1) {</span>
+<span class="nc" id="L167">            System.out.println(&quot;Please enter a number smaller than one.&quot;);</span>
+<span class="nc" id="L168">            return false;</span>
+        }
+        
+<span class="pc bpc" id="L171" title="2 of 4 branches missed.">        if (Coin.toUpperCase().equals(&quot;CANCEL&quot;) || Coin.toUpperCase().equals(&quot;C&quot;)) {</span>
+<span class="nc" id="L172">            return false;</span>
+        }
+
+        try {
+<span class="fc" id="L176">            double note = Double.parseDouble(Note);</span>
+<span class="fc" id="L177">            double coin = Double.parseDouble(Coin);</span>
+<span class="fc" id="L178">            double sum = note + coin;</span>
+
+
+<span class="fc bfc" id="L181" title="All 2 branches covered.">            if (atm.withdraw(note, coin)) {</span>
+
+<span class="fc" id="L183">                Receipt receipt = new Receipt(atm.getReceiptAccount(), sum, &quot;WITHDRAW&quot;, atm.getCurrentCard().getBalance());</span>
+<span class="fc" id="L184">                atm.setReceiptAccount(atm.getReceiptAccount() + 1);</span>
+<span class="fc" id="L185">                receipt.PrintReceipt();</span>
+<span class="fc" id="L186">                return true;</span>
+
+            } else {
+<span class="fc" id="L189">                return false;</span>
+            }
+
+<span class="nc" id="L192">        } catch (Exception e) {</span>
+<span class="nc" id="L193">            System.err.println(&quot;Please enter a numeral input.\r\n&quot;);</span>
+<span class="nc" id="L194">            return false;</span>
+        }
+    }
+}
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

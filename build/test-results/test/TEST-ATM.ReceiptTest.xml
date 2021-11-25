@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ATM.ReceiptTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-10-08T04:35:38" hostname="zhangyupengdeMacBook-Pro.local" time="0.005">
+  <properties/>
+  <testcase name="testGetOperationType()" classname="ATM.ReceiptTest" time="0.003"/>
+  <testcase name="testGetTranNumber()" classname="ATM.ReceiptTest" time="0.001"/>
+  <testcase name="testGetBalance()" classname="ATM.ReceiptTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ATM.MainTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-10-08T04:35:38" hostname="zhangyupengdeMacBook-Pro.local" time="0.014">
+  <properties/>
+  <testcase name="testdeposit()" classname="ATM.MainTest" time="0.009"/>
+  <testcase name="testwithdraw()" classname="ATM.MainTest" time="0.005"/>
+  <system-out><![CDATA[Cash insufficient, maintenance required.
+Please enter the amount you want to deposit(Only notes are accepted):
+Invalid amount.
+Please enter the amount you want to deposit(Only notes are accepted):
+Receipt Track Number: 1000
+ Transaction Option: DEPOSIT
+ Transaction Amount: 10.0
+ Transaction Amount: 1000
+ Remaining Balance: 110
+Please enter the amount you want to deposit(Only notes are accepted):
+The ATM can only deposit notes.
+Please enter the amount you want to deposit(Only notes are accepted):
+Cash insufficient, maintenance required.
+Please enter the amount of notes you want to withdraw.
+Please enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+Receipt Track Number: 1000
+ Transaction Option: WITHDRAW
+ Transaction Amount: 10.2
+ Transaction Amount: 1000
+ Remaining Balance: 89.8
+Please enter the amount of notes you want to withdraw.
+Please enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+Sorry, there is no sufficient note in this ATM at the moment. Please re-enter the amount or comeback later.
+Please enter the amount of notes you want to withdraw.
+Please enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+Sorry, there is no sufficient note in this ATM at the moment. Please re-enter the amount or comeback later.
+Please enter the amount of notes you want to withdraw.
+Please enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+Invalid amount.
+Please enter the amount of notes you want to withdraw.
+Please enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+Invalid amount.
+Please enter the amount of notes you want to withdraw.
+Please enter the amount of notes you want to withdraw.
+Please enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+Invalid amount.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

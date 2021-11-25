@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ATM.MoneyTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-10-08T04:35:38" hostname="zhangyupengdeMacBook-Pro.local" time="0.004">
+  <properties/>
+  <testcase name="getAmountTest()" classname="ATM.MoneyTest" time="0.0"/>
+  <testcase name="setAmountTest()" classname="ATM.MoneyTest" time="0.0"/>
+  <testcase name="getTypeTest()" classname="ATM.MoneyTest" time="0.0"/>
+  <testcase name="initializeTest()" classname="ATM.MoneyTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

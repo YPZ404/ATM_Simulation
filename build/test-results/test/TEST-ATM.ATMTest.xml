@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ATM.ATMTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2021-10-08T04:35:38" hostname="zhangyupengdeMacBook-Pro.local" time="0.035">
+  <properties/>
+  <testcase name="testPeriodicCheck()" classname="ATM.ATMTest" time="0.007"/>
+  <testcase name="testPin()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testGetCurrentCard()" classname="ATM.ATMTest" time="0.0"/>
+  <testcase name="testSetSufficientFund()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testSetReceiptAccount()" classname="ATM.ATMTest" time="0.0"/>
+  <testcase name="testMaintenance()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testGetAvailableFund()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testWithdraw()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testConfiscate()" classname="ATM.ATMTest" time="0.002"/>
+  <testcase name="testGetReceiptAccount()" classname="ATM.ATMTest" time="0.0"/>
+  <testcase name="testCheckCardValid()" classname="ATM.ATMTest" time="0.0"/>
+  <testcase name="testSetupMoney()" classname="ATM.ATMTest" time="0.0"/>
+  <testcase name="testCheckBalance()" classname="ATM.ATMTest" time="0.002"/>
+  <testcase name="testDeposit()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testSetCurrentCard()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testGetCardList()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="setupTest()" classname="ATM.ATMTest" time="0.0"/>
+  <testcase name="testTxtUpdater()" classname="ATM.ATMTest" time="0.001"/>
+  <testcase name="testUpdateToCardList()" classname="ATM.ATMTest" time="0.007"/>
+  <system-out><![CDATA[Cash insufficient, maintenance required.
+Cash insufficient, maintenance required.
+Cash insufficient, maintenance required.
+Cash insufficient, maintenance required.
+Maintenance succeeded.
+Sorry, there is no sufficient coin in this ATM at the moment. Please re-enter the amount or comeback later.
+Invalid amount.
+Invalid amount.
+Sorry, there is no sufficient coin in this ATM at the moment. Please re-enter the amount or comeback later.
+Sorry, there is no sufficient note in this ATM at the moment. Please re-enter the amount or comeback later.
+Sorry, there is no sufficient money in your account. Please re-enter the amount or comeback later.
+This card cannot be used as its status is expired.
+This card cannot be used as its status is lost.
+This card number is invalid.
+
+Remaining Amount: 50000.5
+Invalid amount.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

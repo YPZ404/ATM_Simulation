@@ -1,0 +1,70 @@
+
+	)Cash insufficient, maintenance required.
+
+	)Cash insufficient, maintenance required.
+
+)Cash insufficient, maintenance required.
+
+)Cash insufficient, maintenance required.
+
+Maintenance succeeded.
+
+lSorry, there is no sufficient coin in this ATM at the moment. Please re-enter the amount or comeback later.
+
+Invalid amount.
+
+Invalid amount.
+
+lSorry, there is no sufficient coin in this ATM at the moment. Please re-enter the amount or comeback later.
+
+lSorry, there is no sufficient note in this ATM at the moment. Please re-enter the amount or comeback later.
+
+cSorry, there is no sufficient money in your account. Please re-enter the amount or comeback later.
+
+3This card cannot be used as its status is expired.
+
+0This card cannot be used as its status is lost.
+
+This card number is invalid.
+
+
+
+Remaining Amount: 50000.5
+
+Invalid amount.
+#")Cash insufficient, maintenance required.
+#"FPlease enter the amount you want to deposit(Only notes are accepted):
+#"Invalid amount.
+#"FPlease enter the amount you want to deposit(Only notes are accepted):
+#"Receipt Track Number: 1000
+#" Transaction Option: DEPOSIT
+#" Transaction Amount: 10.0
+#" Transaction Amount: 1000
+#" Remaining Balance: 110
+#"FPlease enter the amount you want to deposit(Only notes are accepted):
+#" The ATM can only deposit notes.
+#"FPlease enter the amount you want to deposit(Only notes are accepted):
+#$)Cash insufficient, maintenance required.
+#$7Please enter the amount of notes you want to withdraw.
+#$MPlease enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+#$Receipt Track Number: 1000
+#$ Transaction Option: WITHDRAW
+#$ Transaction Amount: 10.2
+#$ Transaction Amount: 1000
+#$ Remaining Balance: 89.8
+#$7Please enter the amount of notes you want to withdraw.
+#$MPlease enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+#$lSorry, there is no sufficient note in this ATM at the moment. Please re-enter the amount or comeback later.
+#$7Please enter the amount of notes you want to withdraw.
+#$MPlease enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+#$lSorry, there is no sufficient note in this ATM at the moment. Please re-enter the amount or comeback later.
+#$7Please enter the amount of notes you want to withdraw.
+#$MPlease enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+#$Invalid amount.
+#$7Please enter the amount of notes you want to withdraw.
+#$MPlease enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+#$Invalid amount.
+#$7Please enter the amount of notes you want to withdraw.
+#$7Please enter the amount of notes you want to withdraw.
+#$MPlease enter the amont of coins you want to withdraw(E.g. 0.5 for 50 cents).
+#$Invalid amount.

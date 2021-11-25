@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Receipt.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ATM</a> &gt; <a href="index.source.html" class="el_package">ATM</a> &gt; <span class="el_source">Receipt.java</span></div><h1>Receipt.java</h1><pre class="source lang-java linenums">package ATM;
+
+import java.text.DecimalFormat;
+
+public class Receipt {
+    private int TranNumber;
+    private double ReceiptAmount;
+    private String OperationType;
+    private double Balance;
+<span class="fc" id="L10">    private static DecimalFormat df2 = new DecimalFormat(&quot;#.##&quot;);</span>
+
+<span class="fc" id="L12">    public Receipt(int TranNumber, double ReceiptAmount, String OperationType, double Balance) {</span>
+<span class="fc" id="L13">        this.TranNumber = TranNumber;</span>
+<span class="fc" id="L14">        this.ReceiptAmount = ReceiptAmount;</span>
+<span class="fc" id="L15">        this.OperationType = OperationType;</span>
+<span class="fc" id="L16">        this.Balance = Balance;</span>
+<span class="fc" id="L17">    }</span>
+
+    public double getBalance() {
+<span class="fc" id="L20">        return Balance;</span>
+    }
+
+    public int getTranNumber() {
+<span class="fc" id="L24">        return TranNumber;</span>
+    }
+
+    public String getOperationType() {
+<span class="fc" id="L28">        return OperationType;</span>
+    }
+    
+    public double getReceiptAmount() {
+<span class="fc" id="L32">        return ReceiptAmount;</span>
+    }
+
+    /*
+     * Print the information
+     */
+    public void PrintReceipt(){
+<span class="fc" id="L39">        System.out.println(&quot;Receipt Track Number: &quot; + this.getTranNumber() +</span>
+<span class="fc" id="L40">                &quot;\r\n Transaction Option: &quot; + this.getOperationType() +</span>
+<span class="fc" id="L41">                &quot;\r\n Transaction Amount: &quot; + this.getReceiptAmount() +</span>
+<span class="fc" id="L42">                &quot;\r\n Transaction Amount: &quot; + this.getTranNumber() +</span>
+<span class="fc" id="L43">                &quot;\n Remaining Balance: &quot; + df2.format(this.getBalance()));</span>
+<span class="fc" id="L44">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

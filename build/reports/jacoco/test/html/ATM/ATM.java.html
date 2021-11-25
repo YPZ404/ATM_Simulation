@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ATM.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ATM</a> &gt; <a href="index.source.html" class="el_package">ATM</a> &gt; <span class="el_source">ATM.java</span></div><h1>ATM.java</h1><pre class="source lang-java linenums">package ATM;
+
+import java.util.*;
+import java.io.*;
+
+public class ATM {
+
+    private Double availableFund;
+    private Boolean sufficientFund;
+    private Money[] moneyList;
+    private Card currentCard;
+    private ArrayList&lt;Card&gt; cardDatabase;
+    private int receiptAccount;
+
+<span class="fc" id="L15">    public ATM() {</span>
+<span class="fc" id="L16">        this.availableFund = 0.0;</span>
+<span class="fc" id="L17">        this.sufficientFund = true;</span>
+<span class="fc" id="L18">        this.currentCard = null;</span>
+<span class="fc" id="L19">        this.moneyList = new Money[2];</span>
+<span class="fc" id="L20">        this.cardDatabase= new ArrayList&lt;Card&gt;();</span>
+<span class="fc" id="L21">        this.receiptAccount = 1000;</span>
+<span class="fc" id="L22">    }</span>
+
+    /* Ziyi
+     * Setup is for initializing ATM function:
+        1.Create two Money classes, add them to this.moneyList
+        2.Get the sum of two Money classes, assign to this.AvailableFund
+     */
+    public void setupMoney(double Note, double Coin){
+<span class="fc" id="L30">        Money N = new Money(&quot;Note&quot;, Note);</span>
+<span class="fc" id="L31">        Money C = new Money(&quot;Coin&quot;, Coin);</span>
+<span class="fc" id="L32">        moneyList[0] = N;</span>
+<span class="fc" id="L33">        moneyList[1] = C;</span>
+<span class="fc" id="L34">        availableFund += Note + Coin;</span>
+<span class="fc" id="L35">        periodicCheck();</span>
+<span class="fc" id="L36">    }</span>
+
+    /*
+     * Write cardInfo into Card class, then store into cardDatabase
+     */
+    public void setDatabase(String pathname) {
+        try{
+<span class="fc" id="L43">            File filename = new File(pathname);</span>
+<span class="fc" id="L44">            FileInputStream filestream = new FileInputStream(filename);</span>
+<span class="fc" id="L45">            InputStreamReader streamReader = new InputStreamReader(filestream,&quot;UTF-8&quot;);</span>
+<span class="fc" id="L46">            BufferedReader br = new BufferedReader(streamReader);</span>
+<span class="fc" id="L47">            String lineTxt = null;</span>
+
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            while ((lineTxt = br.readLine()) != null){</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">                if (lineTxt.equals(&quot;&quot;)){</span>
+<span class="nc" id="L51">                    continue;</span>
+                }else {
+<span class="fc" id="L53">                    String[] cardInfo = lineTxt.split(&quot;,&quot;);</span>
+
+<span class="fc" id="L55">                    int cardNumber = Integer.parseInt(cardInfo[0]);</span>
+<span class="fc" id="L56">                    int cardPin = Integer.parseInt(cardInfo[1]);</span>
+<span class="fc" id="L57">                    String cardStatus = cardInfo[2];</span>
+<span class="fc" id="L58">                    double balance = Double.parseDouble(cardInfo[3]);</span>
+<span class="fc" id="L59">                    String BeginDate = cardInfo[4];</span>
+<span class="fc" id="L60">                    String end = cardInfo[5];</span>
+
+<span class="fc" id="L62">                    Card newCard = new Card(cardNumber,cardPin,cardStatus,balance,BeginDate,end);</span>
+<span class="fc" id="L63">                    this.cardDatabase.add(newCard);</span>
+<span class="fc" id="L64">                }</span>
+            }
+<span class="nc" id="L66">        } catch (IOException e) {</span>
+<span class="nc" id="L67">            System.err.println(&quot;read errors :&quot; + e);</span>
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">    }</span>
+
+    /* Jeff
+     * Find cardNumber in cardDatabase
+        * return true or false
+        * if true, extract the information in database, then assign it to this.Card
+     */
+    public Boolean checkCardValid(String checkedNumber){
+<span class="fc" id="L77">        int inputNumber = Integer.parseInt(checkedNumber);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (Card card: this.cardDatabase){</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            if (card.getCardNumber() == inputNumber){</span>
+<span class="fc" id="L80">                this.currentCard = card;</span>
+<span class="fc" id="L81">                this.cardDatabase.remove(card);</span>
+<span class="fc" id="L82">                return true;</span>
+            }
+<span class="fc" id="L84">        }</span>
+<span class="fc" id="L85">        System.out.println(&quot;This card number is invalid.\n&quot;);</span>
+<span class="fc" id="L86">        return false;</span>
+    }
+
+    public void updateToCardList(){
+<span class="fc" id="L90">        this.cardDatabase.add(this.currentCard);</span>
+<span class="fc" id="L91">        this.currentCard = null;</span>
+<span class="fc" id="L92">    }</span>
+
+    /* Zuoliang
+     * operation based on the status (active, lost, invalid)
+     * if exceptional, clear the currentCard
+     */
+    public Boolean checkConfiscate(){
+<span class="fc bfc" id="L99" title="All 2 branches covered.">       if (!this.currentCard.InDate()){</span>
+<span class="fc" id="L100">           System.out.println(&quot;This card cannot be used as its status is expired.&quot;);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">       } else if(this.currentCard.getCardStatus().equals(&quot;invalid&quot;)){</span>
+<span class="nc" id="L102">           System.out.println(&quot;This card cannot be used as its status is invalid.&quot;);</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">       } else if(this.currentCard.getCardStatus().equals(&quot;lost&quot;)){</span>
+<span class="fc" id="L104">           System.out.println(&quot;This card cannot be used as its status is lost.&quot;);</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">       } else if(this.currentCard.getCardStatus().equals(&quot;active&quot;)){</span>
+<span class="fc" id="L106">           return true;</span>
+       }
+<span class="fc" id="L108">       this.updateToCardList();</span>
+<span class="fc" id="L109">       return false;</span>
+    }
+
+    /* Zuoliang
+     * input the password and compare
+     */
+    public Boolean checkPin(String InputPin){
+<span class="fc" id="L116">        int pin = Integer.parseInt(InputPin);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (this.currentCard.getCardPin() == pin){</span>
+<span class="fc" id="L118">            return true;</span>
+        }
+<span class="fc" id="L120">        return false;</span>
+    }
+
+    /* Rachel
+     * Conditions:
+        1. money insufficient
+        2. deposit: money in card -, atm +
+     */
+    public Boolean deposit(Double note){
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (note &lt;= 0.00) {</span>
+<span class="fc" id="L130">            System.out.println(&quot;Invalid amount.&quot;);</span>
+<span class="fc" id="L131">            return false;</span>
+        } else {
+<span class="fc" id="L133">            this.currentCard.setBalance(this.currentCard.getBalance() + note);</span>
+<span class="fc" id="L134">            this.moneyList[0].setAmount(this.moneyList[0].getAmount() + note);</span>
+<span class="fc" id="L135">            return true;</span>
+        }
+    }
+
+    /* Yupeng
+     */
+    public Boolean  withdraw(double note, double coin){
+        // Check the parameters are valid.
+<span class="fc bfc" id="L143" title="All 4 branches covered.">        if(note == 0.00 &amp;&amp; coin == 0.00) {</span>
+<span class="fc" id="L144">            System.out.println(&quot;Invalid amount.&quot;);</span>
+<span class="fc" id="L145">            return false;</span>
+
+<span class="fc bfc" id="L147" title="All 4 branches covered.">        } else if(note &lt; 0.00 || coin &lt; 0.00) {</span>
+<span class="fc" id="L148">            System.out.println(&quot;Invalid amount.&quot;);</span>
+<span class="fc" id="L149">            return false;</span>
+        }
+
+<span class="fc" id="L152">        Money wdrNote = new Money(&quot;note&quot;, note);</span>
+<span class="fc" id="L153">        Money wdrCoin = new Money(&quot;coin&quot;, coin);</span>
+<span class="fc" id="L154">        double totalWdr = note + coin;</span>
+
+<span class="fc bfc" id="L156" title="All 2 branches covered.">        if(wdrNote.getAmount() &gt; this.moneyList[0].getAmount()) {</span>
+<span class="fc" id="L157">            System.out.println(&quot;Sorry, there is no sufficient note in this ATM at the moment. &quot; +</span>
+                    &quot;Please re-enter the amount or comeback later.&quot;);
+<span class="fc" id="L159">            return false;</span>
+
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        } else if(wdrCoin.getAmount() &gt; this.moneyList[1].getAmount()) {</span>
+<span class="fc" id="L162">            System.out.println(&quot;Sorry, there is no sufficient coin in this ATM at the moment. &quot; +</span>
+                    &quot;Please re-enter the amount or comeback later.&quot;);
+<span class="fc" id="L164">            return false;</span>
+
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        } else if(this.currentCard.getBalance() &lt; totalWdr) {</span>
+<span class="fc" id="L167">            System.out.println(&quot;Sorry, there is no sufficient money in your account. &quot; +</span>
+                    &quot;Please re-enter the amount or comeback later.&quot;);
+<span class="fc" id="L169">            return false;</span>
+        }
+
+<span class="fc" id="L172">        double leftNote = this.moneyList[0].getAmount() - wdrNote.getAmount();</span>
+<span class="fc" id="L173">        double leftCoin = this.moneyList[1].getAmount() - wdrCoin.getAmount();</span>
+<span class="fc" id="L174">        double leftBalance = this.currentCard.getBalance() - totalWdr;</span>
+<span class="fc" id="L175">        this.moneyList[0].setAmount(leftNote);</span>
+<span class="fc" id="L176">        this.moneyList[1].setAmount(leftCoin);</span>
+<span class="fc" id="L177">        this.currentCard.setBalance(leftBalance);</span>
+<span class="fc" id="L178">        return true;</span>
+    }
+
+    /* Yupeng
+     */
+    public double checkBalance(){
+<span class="fc" id="L184">        System.out.println(&quot;Remaining Amount: &quot; + this.currentCard.getBalance());</span>
+<span class="fc" id="L185">        return this.currentCard.getBalance();</span>
+    }
+
+    /* Jeff
+     * Update Card back to the database
+     */
+    public void txtUpdater(String pathname){
+        try {
+            // The path of .txt
+<span class="fc" id="L194">            PrintWriter pw=new PrintWriter(pathname);</span>
+<span class="fc" id="L195">            int size = this.cardDatabase.size();</span>
+            // Info to write
+<span class="fc bfc" id="L197" title="All 2 branches covered.">            for (Card card :this.cardDatabase){</span>
+<span class="fc" id="L198">                pw.write(card.getCardNumber()+&quot;,&quot;+card.getCardPin()+&quot;,&quot;+card.getCardStatus()</span>
+<span class="fc" id="L199">                        +&quot;,&quot;+card.getBalance()+&quot;,&quot;+card.getBeginDate()+&quot;,&quot;+card.getEndDate()+&quot;\r\n&quot;);</span>
+<span class="fc" id="L200">            }</span>
+<span class="fc" id="L201">            pw.flush();</span>
+<span class="fc" id="L202">            pw.close();</span>
+<span class="nc" id="L203">        }catch (Exception e) {</span>
+<span class="nc" id="L204">            e.printStackTrace();</span>
+<span class="fc" id="L205">        }</span>
+<span class="fc" id="L206">    }</span>
+
+    /*
+     *ATM
+     */
+    // check if funds in ATM is sufficient
+    public void periodicCheck() {
+        // minimum quantity: 1000$ notes, 100$ coins
+<span class="pc bpc" id="L214" title="1 of 4 branches missed.">        if (moneyList[0].getAmount() &lt; 1000 || moneyList[1].getAmount() &lt; 100) {</span>
+<span class="fc" id="L215">            sufficientFund = false;</span>
+<span class="fc" id="L216">            System.out.println(&quot;Cash insufficient, maintenance required.&quot;);</span>
+        }
+<span class="fc" id="L218">    }</span>
+    // maintain the funds in ATM
+    public void maintenance() {
+<span class="fc" id="L221">        periodicCheck();</span>
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">        if (!sufficientFund) {</span>
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">            if (moneyList[0].getAmount() &lt; 1000) {</span>
+<span class="fc" id="L224">                moneyList[0].setAmount(moneyList[0].getAmount() + 1000);</span>
+<span class="fc" id="L225">                setAvailableFund(getAvailableFund() + 1000);</span>
+            }
+<span class="pc bpc" id="L227" title="1 of 2 branches missed.">            if (moneyList[1].getAmount() &lt; 100) {</span>
+<span class="fc" id="L228">                moneyList[1].setAmount(moneyList[1].getAmount() + 100);</span>
+<span class="fc" id="L229">                setAvailableFund(getAvailableFund() + 100);</span>
+            }
+<span class="fc" id="L231">            sufficientFund = true;</span>
+<span class="fc" id="L232">            System.out.println(&quot;Maintenance succeeded.&quot;);</span>
+        }
+<span class="fc" id="L234">    }</span>
+
+    /*
+     * Getter and setter methods
+     */
+    public Boolean getSufficientFund() {
+<span class="fc" id="L240">        return sufficientFund;</span>
+    }
+
+    public ArrayList&lt;Card&gt; getCardList(){
+<span class="fc" id="L244">        return this.cardDatabase;</span>
+    }
+
+    public Card getCurrentCard() {
+<span class="fc" id="L248">        return currentCard;</span>
+    }
+
+    public Double getAvailableFund() {
+<span class="fc" id="L252">        return availableFund;</span>
+    }
+
+    public Money[] getMoneyList() {
+<span class="fc" id="L256">        return moneyList;</span>
+    }
+
+    public void setAvailableFund(Double availableFund) {
+<span class="fc" id="L260">        this.availableFund = availableFund;</span>
+<span class="fc" id="L261">    }</span>
+
+    public void setCurrentCard(Card currentCard) {
+<span class="fc" id="L264">        this.currentCard = currentCard;</span>
+<span class="fc" id="L265">    }</span>
+
+    public void setSufficientFund(Boolean sufficientFund) {
+<span class="fc" id="L268">        this.sufficientFund = sufficientFund;</span>
+<span class="fc" id="L269">    }</span>
+
+    public int getReceiptAccount() {
+<span class="fc" id="L272">        return receiptAccount;</span>
+    }
+
+    public void setReceiptAccount(int a){
+<span class="fc" id="L276">        this.receiptAccount = a;</span>
+<span class="fc" id="L277">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

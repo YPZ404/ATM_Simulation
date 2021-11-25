@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ATM.CardTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2021-10-08T04:35:38" hostname="zhangyupengdeMacBook-Pro.local" time="0.033">
+  <properties/>
+  <testcase name="testGetCardStatus()" classname="ATM.CardTest" time="0.026"/>
+  <testcase name="testGetEndDate()" classname="ATM.CardTest" time="0.001"/>
+  <testcase name="testGetBeginDate()" classname="ATM.CardTest" time="0.001"/>
+  <testcase name="testGetBalance()" classname="ATM.CardTest" time="0.001"/>
+  <testcase name="testGetCardPin()" classname="ATM.CardTest" time="0.001"/>
+  <testcase name="testInDate()" classname="ATM.CardTest" time="0.001"/>
+  <testcase name="testGetCardNumber()" classname="ATM.CardTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
